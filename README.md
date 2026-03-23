@@ -59,3 +59,51 @@ Backend API for the Cloud Media Gallery app, built with Node.js, Express, Sequel
    - `npm start`
 
 Server starts from `app.js` and exposes API under `/api`.
+
+
+
+## Deployment Overview
+
+The application is deployed using **two main components**:
+### Backend (Node.js App)
+* Runs inside a Docker container
+* Exposes API on port `3000`
+* Handles user and media requests
+* Uses environment variables from `.env`
+
+---
+
+### Database (PostgreSQL)
+
+* Runs in a separate Docker container
+* Stores user and media data
+* Accessible inside Docker network using:
+```env
+DB_HOST=db
+```
+
+---
+
+## ⚙️ Deployment Steps
+
+1. Connect to EC2 and clone the repository
+2. Create `.env` file with database configuration
+3. Run:
+
+```bash
+docker-compose up -d --build
+
+## Access
+http://<your-ec2-public-ip>:3000
+
+## Communication
+
+* Backend ↔ Database via Docker network
+* Uses service name `db` (not localhost)
+---
+
+## Summary
+
+* Backend handles API logic
+* Database stores data
+* Docker Compose manages both services together
