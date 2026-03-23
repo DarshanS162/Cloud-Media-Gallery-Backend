@@ -17,10 +17,17 @@ app.use(cors({
     credentials: true,
 }));
 
-// app.use(cors());
+// Health check route
+app.get('/health', (req, res) => {
+    res.status(200).json({
+        status: 'OK',
+        message: 'Server is running',
+        timestamp: new Date()
+    });
+});
+
 
 // Routes
-
 app.use('/api/users', userRoutes);
 app.use('/api/media', mediaRoutes);
 
